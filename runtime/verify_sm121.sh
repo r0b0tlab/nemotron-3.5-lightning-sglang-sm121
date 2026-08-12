@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 IMAGE="${IMAGE:-lmsysorg/sglang:dev-cu13-nemotron3-5-lightning}"
+MODEL_CKPT="${MODEL_CKPT:?Set MODEL_CKPT to the local Nemotron Lightning weights directory}"
 docker image inspect "$IMAGE" >/dev/null
 python3 - <<'PY'
 from pathlib import Path
 import json, os
-root=Path(os.environ.get('MODEL_CKPT','/home/r0b0tdgx/Documents/Nemotron Lightning/Weights'))
+root=Path(os.environ['MODEL_CKPT'])
 assert (root/'config.json').is_file()
 assert (root/'model.safetensors.index.json').is_file()
 missing=[f'model-{i:05d}-of-00052.safetensors' for i in range(1,53) if not (root/f'model-{i:05d}-of-00052.safetensors').is_file()]

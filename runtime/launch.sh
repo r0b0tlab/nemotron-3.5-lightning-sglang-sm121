@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # SGLang MTP EAGLE steps=3 production window (max_model_len=50016).
 set -Eeuo pipefail
-MODEL_CKPT="${MODEL_CKPT:-/home/r0b0tdgx/Documents/Nemotron Lightning/Weights}"
+MODEL_CKPT="${MODEL_CKPT:?Set MODEL_CKPT to the local Nemotron Lightning weights directory}"
 IMAGE="${IMAGE:-lmsysorg/sglang:dev-cu13-nemotron3-5-lightning}"
 CONTAINER_NAME="${CONTAINER_NAME:-nemotron-lightning-sglang-mtp-s3}"
 PORT="${PORT:-8000}"
 CTX_LEN="${CTX_LEN:-50016}"
 MAX_TOTAL="${MAX_TOTAL:-65536}"
 STEPS="${STEPS:-3}"
-CACHE_ROOT="${CACHE_ROOT:-/home/r0b0tdgx/artifacts/nemotron-lightning-optimization/sglang-sm121-20260812/cache}"
+CACHE_ROOT="${CACHE_ROOT:-$HOME/.cache/sglang-lightning}"
 mkdir -p "$CACHE_ROOT"
 if docker container inspect "$CONTAINER_NAME" >/dev/null 2>&1; then
   printf 'container already exists: %s\n' "$CONTAINER_NAME" >&2
