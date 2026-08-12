@@ -1,0 +1,16 @@
+{
+  "runtime": "sglang",
+  "source_image": "lmsysorg/sglang:dev-cu13-nemotron3-5-lightning",
+  "source_digest": "sha256:e5e3cdb9afefc182ac2427345c27e17ec1c8eddb568732fb3343fd832cee22f1",
+  "local_image_id": "sha256:742672ce50d9e5a09dbeef36ad28c9cf2b6e30fef36d5f24cb4e6682e8cb5ce7",
+  "sglang_build_commit": "d59c1ddf70ee17fcc41c053ed38bd60bc6cc28cc",
+  "cuda": "13.0.3",
+  "arch": "linux/arm64",
+  "speculative": {"algorithm": "EAGLE", "num_steps": 3, "eagle_topk": 1},
+  "moe_runner_backend": "marlin",
+  "attention_backend": "flashinfer",
+  "kv_cache_dtype": "fp8_e4m3",
+  "ghcr_image": "ghcr.io/r0b0tlab/nemotron-lightning-sglang-sm121:sm121-mtp-eagle-s3",
+  "ghcr_digest": "sha256:a958ec46e17c7e6be608cd2f2964bfbf7c3f2f68378cd23de8cfcee399742f79",
+  "note": "registry digest filled after authorized GHCR push"
+}
