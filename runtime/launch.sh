@@ -8,6 +8,8 @@ PORT="${PORT:-8000}"
 CTX_LEN="${CTX_LEN:-50016}"
 MAX_TOTAL="${MAX_TOTAL:-65536}"
 STEPS="${STEPS:-3}"
+MAX_RUNNING="${MAX_RUNNING:-6}"
+GRAPH_BS="${GRAPH_BS:-16}"
 CACHE_ROOT="${CACHE_ROOT:-$HOME/.cache/sglang-lightning}"
 mkdir -p "$CACHE_ROOT"
 if docker container inspect "$CONTAINER_NAME" >/dev/null 2>&1; then
@@ -38,11 +40,12 @@ docker run -d \
   --kv-cache-dtype fp8_e4m3 \
   --context-length "$CTX_LEN" \
   --max-total-tokens "$MAX_TOTAL" \
-  --max-running-requests 6 \
+  --max-running-requests "$MAX_RUNNING" \
+  --cuda-graph-max-bs-decode "$GRAPH_BS" \
   --reasoning-parser nemotron_3 \
   --tool-call-parser qwen3_coder \
   --enable-metrics \
   --attention-backend flashinfer \
   --host 0.0.0.0 \
   --port 8000
-echo "launched $CONTAINER_NAME MTP/EAGLE steps=$STEPS ctx=$CTX_LEN"
+echo "launched $CONTAINER_NAME MTP/EAGLE steps=$STEPS ctx=$CTX_LEN running=$MAX_RUNNING graph_bs=$GRAPH_BS total=$MAX_TOTAL"
